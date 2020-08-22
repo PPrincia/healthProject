@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymleaf.org">
+
+<nav th:replace="layouts :: header"></nav>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+
+	<div class="container">
+	<br>
+		<h3>Location Directory</h3>
+		<hr>
+		
+		<!-- Add new employee button -->
+		<a th:href="@{locations/new}"
+		   class="btn btn-primary btn-sm mb-3">
+		   		New location
+		</a>
+		<br>
+		
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Province</th>
+					<th>District</th>
+					<th>Sector</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="aLocation: ${locations}">
+					<td th:text= "${aLocation.province}"/>
+					<td th:text= "${aLocation.district}"/>
+					<td th:text= "${aLocation.sector}"/>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymleaf.org">
+
+<nav th:replace="layouts :: header"></nav>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+
+	<div class="container">
+	<br>
+		<h3>Patient Directory</h3>
+		<hr>
+		
+		<!-- Add new employee button -->
+		<a th:href="@{patients/new}"
+		   class="btn btn-primary btn-sm mb-3">
+		   		New patient
+		</a>
+		<br>
+		
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Patient Id</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Gender</th>
+					<th>Phone</th>
+					<th>Description</th>
+					<th>Disease Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="aPatient: ${patients}">
+					<td th:text= "${aPatient.patientId}"/>
+					<td th:text= "${aPatient.firstName}"/>
+					<td th:text= "${aPatient.lastName}"/>
+					<td th:text= "${aPatient.gender}"/>
+					<td th:text= "${aPatient.phone}"/>
+					<td th:text= "${aPatient.description}"/>
+					<td th:field="*{diseases}">
+					<td th:each = "patients : ${allDiseases}" 
+								th:value = "${diseases.diseaseId}"
+								th:text = "${diseases.name}">
+					</td>
+					<td th:field="*{locations}"
+						 th:each = "location : ${allLocations}" 
+						 th:value = "${location.id}"
+						 th:text = "${location.name}">
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+
+</body>

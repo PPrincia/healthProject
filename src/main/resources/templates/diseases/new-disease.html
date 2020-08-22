@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymleaf.org">
+
+<nav th:replace="layouts :: header"></nav>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+	<div class="container">
+		<h4 class="text-muted">Fill the informations of the disease</h4>
+		<br>
+		<form th:action="@{/diseases/save}"  th:object="${disease}" method="POST">
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Name" th:field="${disease.name}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Category" th:field="${disease.category}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Severity" th:field="${disease.severity}"></input>
+		</div>
+		
+		<button class="btn btn-info col-2" type="submit">Enter Disease</button>
+		
+		</form>
+	</div>
+</body>

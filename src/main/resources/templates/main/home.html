@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" context="width-device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- BOOTSTRAP CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	
+		
+</head>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+
+  <div class="container">
+  <br>
+  <h3>Main Dashboard</h3>
+  <hr>
+  <h4>Current Locations</h4>
+  <div class="row">
+  	<div class="col-md-6">
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Province</th>
+				<th>District</th>
+				<th>Sector</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="aLocation : ${locationsList}">
+			<td th:text= "${aLocation.province}"/>
+			<td th:text= "${aLocation.district}"/>
+			<td th:text= "${aLocation.sector}"/>
+		</tr>
+		</tbody>
+	</table>
+  	</div>
+  
+  </div>
+  
+  <br>
+  
+  <h4>Current Diseases</h4>
+  <div class="row">
+  	<div class="col-md-6">
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Name</th>
+				<th>Category</th>
+				<th>Severity</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="aDisease : ${diseasesList}">
+			<td th:text= "${aDisease.name}"/>
+			<td th:text= "${aDisease.category}"/>
+			<td th:text= "${aDisease.severity}"/>
+		</tr>
+		</tbody>
+	</table>
+  	</div>
+  </div>
+  
+  <br>
+  
+  <h4>Current Patients</h4>
+  <div class="row">
+  	<div class="col-md-12">
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Patient Id</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Gender</th>
+				<th>Phone</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="aPatient : ${patientsList}">
+			<td th:text= "${aPatient.patientId}"/>
+			<td th:text= "${aPatient.firstName}"/>
+			<td th:text= "${aPatient.lastName}"/>
+			<td th:text= "${aPatient.gender}"/>
+			<td th:text= "${aPatient.phone}"/>
+			<td th:text= "${aPatient.description}"/>
+		</tr>
+		</tbody>
+	</table>
+  	</div>
+  </div>
+ </div>
+ 
+ <br>
+ 
+ <div class="container">
+ <h4>Current Patients with their locations Id</h4> 
+  <div class="row">
+  <div class="col-md-6">
+  
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>First Name</th>
+				<th>Last Stage</th>
+				<th>Location Id</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="aPatientLocationCnt : ${patientListLocationCnt}">
+			<td th:text="${aPatientLocationCnt.firstName}"/>
+			<td th:text="${aPatientLocationCnt.lastName}"/>
+			<td th:text="${aPatientLocationCnt.PatientLocation}"/>
+		</tr>
+		</tbody>
+	</table>
+  		
+  </div>
+  
+  </div>
+	
+  </div>
+  
+  
+  <div class="container">
+ <h4>Current Patients with their Diseases id</h4> 
+  <div class="row">
+  <div class="col-md-6">
+  
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>First Name</th>
+				<th>Last Stage</th>
+				<th>Disease Id</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="aPatientDiseaseCnt : ${patientListDiseaseCnt}">
+			<td th:text="${aPatientDiseaseCnt.firstName}"/>
+			<td th:text="${aPatientDiseaseCnt.lastName}"/>
+			<td th:text="${aPatientDiseaseCnt.PatientDisease}"/>
+		</tr>
+		</tbody>
+	</table>
+  		
+  </div>
+  
+  </div>
+	
+  </div>
+  
+  
+  
+</body>

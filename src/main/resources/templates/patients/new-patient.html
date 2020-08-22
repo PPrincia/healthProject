@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymleaf.org">
+
+<nav th:replace="layouts :: header"></nav>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+	
+	<div class="container">
+		
+		<h4 class="text-muted">Fill the informations of the patient</h4>
+		<br>
+		<form th:action="@{/patients/save}"  th:object="${patient}" method="POST">
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Patient Id" th:field="${patient.patientId}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="First Name" th:field="${patient.firstName}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Last Name" th:field="${patient.lastName}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Gender" th:field="${patient.gender}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Phone" th:field="${patient.phone}"></input>
+		</div>
+		
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Description" th:field="${patient.description}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<h6>Disease's name</h6>
+		<select th:field="*{diseases}" class="form-control" multiple="multiple">
+			<option th:each = "diseases : ${allDiseases}" 
+					th:value = "${diseases.diseaseId}"
+					th:text = "${diseases.name}">
+			
+			</option>
+		</select>
+		</div>
+		
+		<div class="form-group row">
+		<h6>Locations' sector</h6>
+		<select th:field="*{location}" class="form-control" multiple="multiple">
+			<option th:each = "locatons  : ${allLocations}" 
+					th:value = "${locaton.id}"
+					th:text = "${locatons.sector}">
+			
+			</option>
+		</select>
+		</div>
+		
+		
+		<button class="btn btn-info col-2" type="submit">Enter Patient</button>
+		
+		</form>
+	</div>
+</body>

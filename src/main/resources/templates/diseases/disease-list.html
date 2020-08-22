@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymleaf.org">
+
+<nav th:replace="layouts :: header"></nav>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+
+	<div class="container">
+	<br>
+		<h3>Disease Directory</h3>
+		<hr>
+		
+		<!-- Add new employee button -->
+		<a th:href="@{diseases/new}"
+		   class="btn btn-primary btn-sm mb-3">
+		   		New disease
+		</a>
+		<br>
+		
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Severity</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="aDisease: ${diseases}">
+					<td th:text= "${aDisease.name}"/>
+					<td th:text= "${aDisease.category}"/>
+					<td th:text= "${aDisease.severity}"/>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>

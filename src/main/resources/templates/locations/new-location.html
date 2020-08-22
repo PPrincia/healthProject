@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymleaf.org">
+
+<nav th:replace="layouts :: header"></nav>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+	<div class="container">
+		<h4 class="text-muted">Fill the informations of the location</h4>
+		<br>
+		<form th:action="@{/locations/save}"  th:object="${location}" method="POST">
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Province" th:field="${location.province}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="District" th:field="${location.district}"></input>
+		</div>
+		
+		<div class="form-group row">
+		<input type="text" class="form-control" placeholder="Sector" th:field="${location.sector}"></input>
+		</div>
+		
+		<button class="btn btn-info col-2" type="submit">Enter Location</button>
+		
+		</form>
+	</div>
+</body>
