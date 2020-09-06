@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jrp.pma.dao.DiseaseRepository;
 import com.jrp.pma.entities.Disease;
+import com.jrp.pma.entities.Patient;
 import com.jrp.pma.services.DiseaseService;
+import com.jrp.pma.services.PatientService;
 
 @Controller
 @RequestMapping("/diseases")
@@ -20,10 +23,17 @@ public class DiseaseController {
 	@Autowired
 	DiseaseService disService;
 	
+	@Autowired
+	DiseaseRepository disRepo;
+	
+	@Autowired
+	PatientService patService;
+	
 	@GetMapping
 	public String displayDiseases(Model model) {
 		
 		List<Disease> diseases = disService.getAll();
+		
 		model.addAttribute("diseases", diseases);
 		
 		return "diseases/disease-list";
@@ -34,15 +44,16 @@ public class DiseaseController {
 	public String displayDiseaseForm(Model model) {
 		
 		Disease aDisease = new Disease();
+		List<Patient> patients = patService.getAll();
 		model.addAttribute("disease", aDisease);
-		
+		model.addAttribute("allPatients", patients);
 		return "diseases/new-disease";
 	}
 	
 	@PostMapping("/save")
 	public String createDisease(Disease disease,BindingResult bindingResult, Model model) {
 		
-		disService.save(disease);
+		disRepo.save(disease);
 		
 		return "redirect:/diseases";
 	}

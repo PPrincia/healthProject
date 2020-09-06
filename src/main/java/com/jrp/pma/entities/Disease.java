@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Disease {
@@ -20,16 +23,18 @@ public class Disease {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long diseaseId;
 	
+	@NotBlank
 	private String name;
+	@NotBlank
 	private String category;
+	@NotBlank
 	private String severity;
 	
-	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
 			   fetch = FetchType.LAZY)
-	@JoinTable(name="patient_disease",
-	joinColumns = @JoinColumn(name="disease_id"),
-	inverseJoinColumns = @JoinColumn(name=("patient_id")))
-	private List<Patient> patients;
+	@JoinColumn(name = "patient_id")
+	@NotNull
+	private Patient patient;
 	
 	public String getName() {
 		return name;
@@ -49,21 +54,20 @@ public class Disease {
 	public void setSeverity(String severity) {
 		this.severity = severity;
 	}
-	
-	
-	
+	 
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 	public long getDiseaseId() {
 		return diseaseId;
 	}
 	public void setDiseaseId(long diseaseId) {
 		this.diseaseId = diseaseId;
 	}
-	public List<Patient> getPatients() {
-		return patients;
-	}
-	public void setPatients(List<Patient> patients) {
-		this.patients = patients;
-	}
+	
 	public Disease(long diseaseId, String name, String category, String severity) {
 		super();
 		this.diseaseId = diseaseId;
@@ -72,11 +76,14 @@ public class Disease {
 		this.severity = severity;
 	}
 	
-	
 	public Disease() {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return "Disease [name=" + name + "]";
+	}
 	
 	
 }

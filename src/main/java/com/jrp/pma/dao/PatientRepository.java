@@ -9,7 +9,7 @@ import com.jrp.pma.dto.PatientDiseaseList;
 import com.jrp.pma.dto.PatientLocationList;
 import com.jrp.pma.entities.Patient;
 
-public interface PatientRepository extends CrudRepository<Patient, Long>{
+public interface PatientRepository extends CrudRepository<Patient, String>{
 
 	@Override
 	public List<Patient> findAll();
@@ -24,6 +24,18 @@ public interface PatientRepository extends CrudRepository<Patient, Long>{
 			"FROM patient p left join patient_disease de on de.patient_id = p.patient_id\r\n" + 
 			"GROUP BY p.first_name, p.last_name ORDER BY 3  DESC")
 	public List<PatientDiseaseList> patientDis();
+
+
+	public Patient findByPatientId(String value);
+
+
+	public Patient findPatientByPhone(String value);
+
+
+	
+
+
+	
 
 
 }

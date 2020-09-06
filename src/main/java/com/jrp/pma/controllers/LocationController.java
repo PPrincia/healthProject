@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jrp.pma.dao.LocationRepository;
 import com.jrp.pma.dao.PatientRepository;
 import com.jrp.pma.entities.Location;
 import com.jrp.pma.entities.Patient;
@@ -21,6 +22,9 @@ public class LocationController {
 
 	@Autowired
 	LocationService locService;
+	
+	@Autowired
+	LocationRepository locRepo;
 	
 	@Autowired
 	PatientRepository patRepo;
@@ -49,7 +53,7 @@ public class LocationController {
 	@PostMapping("/save")
 	public String createLocation(Location location, BindingResult bindingResult, Model model) {
 		
-		locService.save(location);
+		locRepo.save(location);
 		
 		return "redirect:/locations";
 	}

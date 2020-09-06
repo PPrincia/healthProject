@@ -53,8 +53,6 @@ public class Location {
 	}
 	
 	
-	
-	
 	public List<Patient> getPatients() {
 		return patients;
 	}
