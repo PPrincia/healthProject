@@ -14,35 +14,35 @@
 		
 		<h4 class="text-muted">Fill the informations of the patient</h4>
 		<br>
-		<form th:action="@{/patients/save}"  th:object="${patient}" method="POST">
+		<form th:action="@{/patients/save}"  th:object="${pati}" method="POST">
 		
 		<div class="form-group row">
-		<input type="text" class="form-control" placeholder="Patient Id" th:field="${patient.patientId}"></input>
+		<input type="text" class="form-control" placeholder="Patient Id" th:field="${pati.patientId}"></input>
 		</div>
 		
 		<div class="form-group row">
-		<input type="text" class="form-control" placeholder="First Name" th:field="${patient.firstName}"></input>
+		<input type="text" class="form-control" placeholder="First Name" th:field="${pati.firstName}"></input>
 		<span style="color: red" th:if="${#fields.hasErrors('firstName')}"th:errors="*{firstName}">
 		</div>
 		
 		<div class="form-group row">
-		<input type="text" class="form-control" placeholder="Last Name" th:field="${patient.lastName}"></input>
+		<input type="text" class="form-control" placeholder="Last Name" th:field="${pati.lastName}"></input>
 		<span style="color: red" th:if="${#fields.hasErrors('lastName')}"th:errors="*{lastName}">
 		</div>
 		
 		<div class="form-group row">
-		<input type="text" class="form-control" placeholder="Gender" th:field="${patient.gender}"></input>
+		<input type="text" class="form-control" placeholder="Gender" th:field="${pati.gender}"></input>
 		<span style="color: red" th:if="${#fields.hasErrors('gender')}"th:errors="*{gender}">
 		</div>
 		
 		<div class="form-group row">
-		<input type="text" class="form-control" placeholder="Phone" th:field="${patient.phone}"></input>
+		<input type="text" class="form-control" placeholder="Phone" th:field="${pati.phone}"></input>
 		<span style="color: red" th:if="${#fields.hasErrors('phone')}"th:errors="*{phone}">
 		</div>
 		
 		
 		<div class="form-group row">
-		<input type="text" class="form-control" placeholder="Description" th:field="${patient.description}"></input>
+		<input type="text" class="form-control" placeholder="Description" th:field="${pati.description}"></input>
 		<span style="color: red" th:if="${#fields.hasErrors('description')}"th:errors="*{description}">
 		</div>
 		
@@ -54,19 +54,21 @@
 					th:text = "${disease.name}">
 			
 			</option>
-			<span style="color: red" th:if="${#fields.hasErrors('diseases')}"th:errors="*{diseases}">
+			<span style="color: red" th:if="${#fields.hasErrors('diseases')}"th:errors="${pati.diseases}">
 		</select>
 		</div>
 		
+	
+		
 		<div class="form-group row">
 		<h6>Locations' sector</h6>
-		<select th:field="*{location}" class="form-control" multiple="multiple">
-			<option th:each = "locations  : ${allLocations}" 
-					th:value = "${locations.id}"
-					th:text = "${locations.sector}">
+		<select th:field="*{locations}" class="form-control" multiple="multiple">
+			<option th:each = "location  : ${allLocations}" 
+					th:value = "${location.id}"
+					th:text = "${location.sector}">
 			
 			</option>
-			<span style="color: red" th:if="${#fields.hasErrors('location')}"th:errors="*{location}">
+			<span style="color: red" th:if="${#fields.hasErrors('locations')}"th:errors="*{locations}">
 		</select>
 		</div>
 		

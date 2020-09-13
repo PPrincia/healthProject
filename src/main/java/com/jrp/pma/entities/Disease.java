@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -30,11 +32,14 @@ public class Disease {
 	@NotBlank
 	private String severity;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+	/*@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
 			   fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id")
+	@JoinColumn(name = "patient_id")*/
+	
+	
+	@ManyToMany(mappedBy = "diseases")
 	@NotNull
-	private Patient patient;
+	private List<Patient> patient;
 	
 	public String getName() {
 		return name;
@@ -55,10 +60,10 @@ public class Disease {
 		this.severity = severity;
 	}
 	 
-	public Patient getPatient() {
+	public List<Patient> getPatient() {
 		return patient;
 	}
-	public void setPatient(Patient patient) {
+	public void setPatient(List<Patient> patient) {
 		this.patient = patient;
 	}
 	public long getDiseaseId() {
@@ -68,10 +73,10 @@ public class Disease {
 		this.diseaseId = diseaseId;
 	}
 	
-	public Disease(long diseaseId, String name, String category, String severity) {
+	public Disease(long diseaseId, String na, String category, String severity) {
 		super();
 		this.diseaseId = diseaseId;
-		this.name = name;
+		this.name = na;
 		this.category = category;
 		this.severity = severity;
 	}
@@ -80,10 +85,13 @@ public class Disease {
 		
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "Disease [name=" + name + "]";
+		return name;
 	}
+	
+	
 	
 	
 }

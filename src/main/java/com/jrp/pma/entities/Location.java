@@ -22,6 +22,8 @@ public class Location {
 	private String district;
 	private String sector;
 	
+	@OneToMany(mappedBy = "locations")
+	private List<Patient> patient;
 	
 	
 	public long getId() {
@@ -30,8 +32,7 @@ public class Location {
 	public void setId(long id) {
 		this.id = id;
 	}
-	@OneToMany(mappedBy = "location")
-	private List<Patient> patients;
+	
 	
 	public String getProvince() {
 		return province;
@@ -53,22 +54,27 @@ public class Location {
 	}
 	
 	
-	public List<Patient> getPatients() {
-		return patients;
+	public List<Patient> getPatient() {
+		return patient;
 	}
-	public void setPatients(List<Patient> patients) {
-		this.patients = patients;
+	public void setPatient(List<Patient> patient) {
+		this.patient = patient;
 	}
+	
+	
+	
+	
 	@Override
 	public String toString() {
-		return "location [ sector=" + sector + "]";
+		return "Location [patient=" + patient + "]";
 	}
-	public Location(long id, String province, String district, String sector) {
+	public Location(long id, String province, String district, String sector, List<Patient> patient) {
 		super();
 		this.id = id;
 		this.province = province;
 		this.district = district;
 		this.sector = sector;
+		this.patient = patient;
 	}
 	public Location() {
 		

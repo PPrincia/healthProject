@@ -26,6 +26,7 @@
 					<th>Province</th>
 					<th>District</th>
 					<th>Sector</th>
+					<th>Patients</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,6 +34,7 @@
 					<td th:text= "${aLocation.province}"/>
 					<td th:text= "${aLocation.district}"/>
 					<td th:text= "${aLocation.sector}"/>
+					<td th:next= "${aLocation.patient}"/>
 				</tr>
 			</tbody>
 		</table>

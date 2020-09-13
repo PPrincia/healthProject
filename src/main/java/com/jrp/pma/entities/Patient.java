@@ -1,6 +1,8 @@
 package com.jrp.pma.entities;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,18 +53,26 @@ public class Patient {
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
 			   fetch = FetchType.LAZY)
 	@JoinColumn(name = "location_id")
-	@NotNull
-	private Location location;
+	private Location locations;
 	
 	
-	@OneToMany(mappedBy = "patient")
-	/*@JoinTable(name="patient_disease",
-	joinColumns = @JoinColumn(name="patient_id", referencedColumnName = "patientId",
-            nullable = false),
-	inverseJoinColumns = @JoinColumn(name="disease_id", referencedColumnName = "diseaseId",
-            nullable = false))*/
+	
+	/*@OneToMany(mappedBy = "patient")*/
+	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+			   fetch = FetchType.LAZY)
+	@JoinTable(name="patient_disease",
+	joinColumns = {@JoinColumn(name="patient_id")},
+	inverseJoinColumns = {@JoinColumn(name="disease_id")})
 	private List<Disease> diseases;
 	
+
+	
+	public List<Disease> getDiseases() {
+		return diseases;
+	}
+	public void setDiseases(List<Disease> diseases) {
+		this.diseases = diseases;
+	}
 	public String getPatientId() {
 		return patientId;
 	}
@@ -99,23 +109,20 @@ public class Patient {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Location getLocations() {
+		return locations;
+	}
+	public void setLocations(Location locations) {
+		this.locations = locations;
+	}
 	
+
+
 	
-	
-	public List<Disease> getDiseases() {
-		return diseases;
-	}
-	public void setDiseases(List<Disease> diseases) {
-		this.diseases = diseases;
-	}
-	public Location getLocation() {
-		return location;
-	}
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-	public Patient(String patientId, String firstName, String lastName, String gender, String phone, String description
-			 ) {
+	public Patient(String patientId, @NotNull @Size(min = 2, max = 30) String firstName,
+			@NotBlank @Size(min = 2, max = 30) String lastName, @NotBlank String gender, @NotBlank String phone,
+			@NotBlank String description, @NotNull Location locations, List<Disease> diseases) {
 		super();
 		this.patientId = patientId;
 		this.firstName = firstName;
@@ -123,14 +130,31 @@ public class Patient {
 		this.gender = gender;
 		this.phone = phone;
 		this.description = description;
-		
-		
+		this.locations = locations;
+		this.diseases = diseases;
 	}
-	
-	
 	public Patient() {
 		
 	}
+	@Override
+	public String toString() {
+		return "Patient [patientId=" + patientId + ", locations=" + locations + ", diseases=" + diseases + "]";
+	}
 	
 	
+	
+	
+	
+	/*public Patient(@NotNull @Size(min = 2, max = 30) String firstName) {
+		super();
+		this.firstName = firstName;
+	}*/
+	
+	
+	
+	/*@JoinTable(name="patient_disease",
+	joinColumns = @JoinColumn(name="patient_id", referencedColumnName = "patientId",
+            nullable = false),
+	inverseJoinColumns = @JoinColumn(name="disease_id", referencedColumnName = "diseaseId",
+            nullable = false))*/
 }

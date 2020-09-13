@@ -26,17 +26,7 @@
 		<input type="text" class="form-control" placeholder="Severity" th:field="${disease.severity}"></input>
 		</div>
 		
-		<div class="form-group row">
-		<h6>Patient's name</h6>
-		<select th:field="*{patient}" class="form-control" multiple="multiple">
-			<option th:each = "patient  : ${allPatients}" 
-					th:value = "${patient.patientId}"
-					th:text = "${patient.firstName}">
-			
-			</option>
-			<span style="color: red" th:if="${#fields.hasErrors('patient')}"th:errors="*{patient}">
-		</select>
-		</div>
+		
 		
 		<button class="btn btn-info col-2" type="submit">Enter Disease</button>
 		

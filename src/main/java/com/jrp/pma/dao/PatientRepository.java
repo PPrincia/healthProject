@@ -15,21 +15,28 @@ public interface PatientRepository extends CrudRepository<Patient, String>{
 	public List<Patient> findAll();
 	
 	
-	@Query(nativeQuery = true, value = "SELECT p.first_name as firstName, p.last_name as lastName,  COUNT(pl.patient_id) as PatientLocation \r\n" + 
-			"FROM patient p left join patient_location pl on pl.patient_id = p.patient_id\r\n" + 
-			"GROUP BY p.first_name, p.last_name ORDER BY 3  DESC")
+	@Query(nativeQuery = true, value = "SELECT p.first_name as firstName, p.last_name as lastName, p.location_id  as PatientLocation\r\n" + 
+			"FROM patient p")
 	public List<PatientLocationList> patientLo();
 	
-	@Query(nativeQuery = true, value = "SELECT p.first_name as firstName, p.last_name as lastName,  COUNT(de.patient_id) as PatientDisease\r\n" + 
-			"FROM patient p left join patient_disease de on de.patient_id = p.patient_id\r\n" + 
-			"GROUP BY p.first_name, p.last_name ORDER BY 3  DESC")
+	@Query(nativeQuery = true, value = "SELECT d.disease_id as DiseaseId, d.patient_id as PatientId, p.first_name as FirstName , p.last_name as LastName\r\n" + 
+			"FROM patient_disease d left join patient p on d.patient_id = p.patient_id")
 	public List<PatientDiseaseList> patientDis();
 
 
-	public Patient findByPatientId(String value);
+	//public Patient findByPatientId(String value);
 
 
-	public Patient findPatientByPhone(String value);
+	//public Patient findPatientByPhone(String value);
+
+
+	public List<Patient> findAllByPatientIdIn(List<String> patients);
+
+
+	//public Iterable<Patient> findByPatientId(List<Long> patients);
+
+
+	
 
 
 	

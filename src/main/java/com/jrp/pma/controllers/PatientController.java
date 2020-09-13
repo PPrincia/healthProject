@@ -11,11 +11,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jrp.pma.dao.DiseaseRepository;
+import com.jrp.pma.dao.LocationRepository;
 import com.jrp.pma.dao.PatientRepository;
 import com.jrp.pma.entities.Disease;
 import com.jrp.pma.entities.Location;
@@ -43,11 +45,14 @@ public class PatientController {
 	@Autowired
 	LocationService locService;
 	
+	@Autowired
+	LocationRepository locRepo;
+	
 	@GetMapping
 	public String displayPatients(Model model) {
 		
 		List<Patient> patients = patService.getAll();
-		model.addAttribute("patients", patients);
+		model.addAttribute("pat", patients);
 		
 		return "patients/patient-list";
 	}
@@ -56,24 +61,27 @@ public class PatientController {
 	public String displayPatientForm(Model model) {
 		
 		Patient aPatient = new Patient();
-		List<Disease> diseases = disService.getAll();
+		List<Disease> diseases = disRepo.findAll();
 		List<Location> locations = locService.getAll();
-		model.addAttribute("patient", aPatient);
+		model.addAttribute("pati", aPatient);
 		model.addAttribute("allDiseases", diseases);
 		model.addAttribute("allLocations", locations);
+		
 		return "patients/new-patient";
 	}
 	
 	@PostMapping("/save")
-	public String createPatient(Model model, @Valid Patient patient, @RequestParam List<Long> diseases ){
+	public String createPatient( @Valid Patient pat, BindingResult bindingResult, @RequestParam List<Long> diseases, Model model ){
 		
-		Iterable<Disease> choosenDiseases = disRepo.findAllById(diseases);
+		
+		
+		/*Iterable<Disease> choosenDiseases = disRepo.findAllById(diseases);
 		for(Disease dis:choosenDiseases) {
-			dis.setPatient(patient);
-			disRepo.save(dis);
-		}
-		
-		patRepo.save(patient);
+			dis.setPatient(pat);
+			disRepo.save(dis);*/
+			
+	   
+		patRepo.save(pat);
 		
 		return "redirect:/patients";
 	}

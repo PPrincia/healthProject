@@ -34,7 +34,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="aPatient: ${patients}">
+				<tr th:each="aPatient: ${pat}">
 					<td th:text= "${aPatient.patientId}"/>
 					<td th:text= "${aPatient.firstName}"/>
 					<td th:text= "${aPatient.lastName}"/>
@@ -42,7 +42,7 @@
 					<td th:text= "${aPatient.phone}"/>
 					<td th:text= "${aPatient.description}"/>
 					<td th:text= "${aPatient.diseases}"/>
-					<td th:text="${aPatient.location}"/>
+					
 				</tr>
 				
 			</tbody>

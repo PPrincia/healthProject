@@ -26,6 +26,18 @@
 		<input type="text" class="form-control" placeholder="Sector" th:field="${location.sector}"></input>
 		</div>
 		
+		<div class="form-group row">
+		<h6>Patients'name</h6>
+		<select th:field="*{patient}" class="form-control" multiple="multiple">
+			<option th:each = "patiient  : ${allPatients}" 
+					th:value = "${patiient.patientId}"
+					th:text = "${patiient.firstName}">
+			</option>
+		</select>
+		</div>
+		
+		
+		
 		<button class="btn btn-info col-2" type="submit">Enter Location</button>
 		
 		</form>
